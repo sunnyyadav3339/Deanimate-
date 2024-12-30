@@ -1,3 +1,5 @@
+##Python file to split the dataset into training and testing subsets.
+
 import os
 import shutil
 from sklearn.model_selection import train_test_split
