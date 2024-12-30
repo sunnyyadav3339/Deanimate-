@@ -1,7 +1,8 @@
+##Python file to preprocess the datasets.
+
 import os
 from PIL import Image
 from torchvision import transforms
-from tqdm import tqdm
 
 dataset_paths = [
     r"D:\Deanimate\Dataset\Anime\Test_anime",
@@ -19,10 +20,9 @@ transform = transforms.Compose([
 ])
 
 def transform_imgs(folder_path, transform):
-
     files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
     
-    for file in tqdm(files, desc=f"Processing {folder_path}"):
+    for file in files:
         file_path = os.path.join(folder_path, file)
 
         image = Image.open(file_path).convert("RGB")
@@ -30,8 +30,7 @@ def transform_imgs(folder_path, transform):
         processed_image_pil = transforms.ToPILImage()((processed_image * 0.5 + 0.5))  # De-normalize to [0, 1]
         processed_image_pil.save(file_path)
 
-
 for folder_path in dataset_paths:
     transform_imgs(folder_path, transform)
 
-print("Preprocessing complete. Images have been saved back to their original folders.")
+
